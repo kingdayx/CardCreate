@@ -26,7 +26,8 @@ const MenuIconContainer = styled.div`
 `;
 
 const MenuIconTitle = styled.div`
-  color: grey;
+  color: lightgrey;
+  font-family: sans-serif;
   padding-top: 5px;
 `;
 
