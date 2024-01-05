@@ -1,7 +1,8 @@
 import { ChevronLeftOutlined, SearchRounded } from "@mui/icons-material";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { MenuData } from "../MenuData";
+import { UploadButton } from "@bytescale/upload-widget-react";
 
 const ModalContainer = styled.section`
   display: flex;
@@ -62,10 +63,45 @@ const ModalSubTitle = styled.h1`
 
 const ModalContentData = styled.div``;
 
+const options = {
+  apiKey: "free", // Get API keys from: www.bytescale.com
+  maxFileCount: 10,
+};
+
 export default function MenuDetails({ isModalOpen, modalContent, onClose }) {
   if (isModalOpen !== true) {
     return null;
   }
+
+  const uploadData = [];
+
+  const renderContent = (item) => {
+    if (item?.name === "upload") {
+      return (
+        <div>
+          {" "}
+          <UploadButton
+            options={options}
+            onComplete={(files) =>
+              uploadData.push(files.map((x) => x.fileUrl).join("\n"))
+            }
+          >
+            {({ onClick }) => (
+              <button onClick={onClick}>Upload a file...</button>
+            )}
+          </UploadButton>
+          <div>
+            {uploadData.map((item, itemIndex) => {
+              return <img src={item} height={100} width={100} id={itemIndex} />;
+            })}
+          </div>
+        </div>
+      );
+    } else {
+      return item?.content;
+    }
+  };
+
   console.log("data", MenuData);
   return (
     <ModalContainer>
@@ -91,7 +127,7 @@ export default function MenuDetails({ isModalOpen, modalContent, onClose }) {
                     );
                   })}
                 </ModalSubTitleContainer>
-                <ModalContentData> {item.content} </ModalContentData>
+                <ModalContentData>{renderContent(item)}</ModalContentData>
               </ModalMainContent>
             </ModalContent>
           );
