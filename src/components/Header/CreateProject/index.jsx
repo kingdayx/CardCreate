@@ -3,12 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function CreateProject() {
   const [projectName, setName] = useState("");
-
+  const navigate = useNavigate();
   const createProject = (e) => {
     e.preventDefault();
     console.log("project created", projectName);
-    const navigate = useNavigate();
-    navigate("/create");
+    navigate("/create", { relative: "path" });
   };
 
   return (
