@@ -68,22 +68,30 @@ const options = {
   maxFileCount: 10,
 };
 
-export default function MenuDetails({ isModalOpen, modalContent, onClose }) {
+export default function MenuDetails({
+  isModalOpen,
+  modalContent,
+  onClose,
+  uploadData,
+  setUploadData,
+}) {
   if (isModalOpen !== true) {
     return null;
   }
 
-  const uploadData = [];
-
   const renderContent = (item) => {
     if (item?.name === "upload") {
+      console.log("upload data ", uploadData);
       return (
         <div>
           {" "}
           <UploadButton
             options={options}
             onComplete={(files) =>
-              uploadData.push(files.map((x) => x.fileUrl).join("\n"))
+              setUploadData([
+                ...uploadData,
+                files.map((x) => x.fileUrl).join("\n"),
+              ])
             }
           >
             {({ onClick }) => (
