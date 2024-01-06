@@ -7,7 +7,7 @@ export default function CreateProject() {
   const createProject = (e) => {
     e.preventDefault();
     console.log("project created", projectName);
-    navigate("/create", { relative: "path" });
+    navigate(`/create/project?=${projectName}`, { relative: "path" });
   };
 
   return (
