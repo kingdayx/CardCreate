@@ -6,19 +6,21 @@ import "./index.css";
 import CreateCard from "./components/CreateCard/index.jsx";
 import { DndContext } from "@dnd-kit/core";
 import SignUp from "./components/Header/Auth/SignUp.jsx";
+import Auth from "./components/Header/Auth/SignIn.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
   },
-  {
-    path: "/create",
-    element: <CreateCard />,
-  },
+
   {
     path: "/signUp",
     element: <SignUp />,
+  },
+  {
+    path: "/logIn",
+    element: <Auth />,
   },
 ]);
 
