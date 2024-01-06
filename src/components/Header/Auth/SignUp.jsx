@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { auth } from "../../../firebase";
+import { auth, db } from "../../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link } from "react-router-dom";
 import Auth from "./SignIn";
+import { collection, addDoc } from "firebase/firestore";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -15,6 +16,18 @@ export default function SignUp() {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .then(async () => {
+        try {
+          const docRef = await addDoc(collection(db, "users"), {
+            email: email,
+            password: password,
+          });
+          console.log("Document written with ID: ", docRef.id);
+          alert("account created! please proceed to log in page");
+        } catch (e) {
+          console.error("Error adding document: ", e);
+        }
       });
   };
   return (

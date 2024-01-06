@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 function Header({ authUser, setAuthUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  console.log("email", email);
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
       if (user) {
