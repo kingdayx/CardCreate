@@ -9,6 +9,7 @@ import SignUp from "./SignUp";
 import { Link } from "react-router-dom";
 import CreateCard from "../../CreateCard";
 import Header from "..";
+import App from "../../../App";
 
 export default function Auth() {
   const [email, setEmail] = useState("");
@@ -50,7 +51,7 @@ export default function Auth() {
   return (
     <div>
       {authUser ? (
-        <CreateCard userSignOut={userSignOut} />
+        <App />
       ) : (
         <div>
           <form name="signIn" onSubmit={SignIn}>

@@ -32,11 +32,7 @@ function App() {
 
   return (
     <>
-      {authUser ? (
-        <CreateCard userSignOut={userSignOut} />
-      ) : (
-        <Header authUser={authUser} setAuthUser={setAuthUser} />
-      )}
+      <Header authUser={authUser} setAuthUser={setAuthUser} />
     </>
   );
 }

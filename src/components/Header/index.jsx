@@ -4,6 +4,7 @@ import SignUp from "./Auth/SignUp";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import { Link } from "react-router-dom";
+import CreateProject from "./CreateProject/index.jsx";
 
 function Header({ authUser, setAuthUser }) {
   const [email, setEmail] = useState("");
@@ -25,14 +26,17 @@ function Header({ authUser, setAuthUser }) {
   return (
     <div>
       <div> Welcome to the business card creator! </div>
-
-      <Auth
-        email={email}
-        password={password}
-        setEmail={setEmail}
-        setPassword={setPassword}
-        setAuthUser={setAuthUser}
-      />
+      {authUser ? (
+        <CreateProject />
+      ) : (
+        <Auth
+          email={email}
+          password={password}
+          setEmail={setEmail}
+          setPassword={setPassword}
+          setAuthUser={setAuthUser}
+        />
+      )}
     </div>
   );
 }
