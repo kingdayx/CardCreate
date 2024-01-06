@@ -33,9 +33,9 @@ function App() {
   return (
     <>
       {authUser ? (
-        <Header authUser={authUser} setAuthUser={setAuthUser} />
-      ) : (
         <CreateCard userSignOut={userSignOut} />
+      ) : (
+        <Header authUser={authUser} setAuthUser={setAuthUser} />
       )}
     </>
   );

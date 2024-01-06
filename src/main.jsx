@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import CreateCard from "./components/CreateCard/index.jsx";
 import { DndContext } from "@dnd-kit/core";
+import SignUp from "./components/Header/Auth/SignUp.jsx";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: "/create",
     element: <CreateCard />,
+  },
+  {
+    path: "/signUp",
+    element: <SignUp />,
   },
 ]);
 
