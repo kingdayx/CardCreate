@@ -67,6 +67,7 @@ const MenuIconTitle = styled.div`
 export default function Menu() {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [modalContent, setModalContent] = useState("design");
+  const [uploadData, setUploadData] = useState([]);
 
   const openModal = (content) => {
     setIsModalOpen(true);
@@ -156,6 +157,8 @@ export default function Menu() {
           isModalOpen={isModalOpen}
           modalContent={modalContent}
           onClose={closeModal}
+          uploadData={uploadData}
+          setUploadData={setUploadData}
         />
       </MenuModal>
     </MenuContainer>

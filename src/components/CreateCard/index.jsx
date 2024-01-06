@@ -19,10 +19,12 @@ const CreateCardNav = styled.div`
   flex-direction: row;
 `;
 
-function CreateCard() {
+function CreateCard({ userSignOut }) {
   return (
     <CreateCardContainer>
-      <CreateCardNav>navigation</CreateCardNav>
+      <CreateCardNav>
+        navigation <button onClick={userSignOut}>sign out</button>{" "}
+      </CreateCardNav>
       <CreateCardCreator>
         <Menu />
         <CardDrop />
