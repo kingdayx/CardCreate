@@ -36,11 +36,11 @@ export default function SignUp() {
           required
         />
         <button type="submit"> Sign Up </button>
-        <h5> Already signed up? </h5>
-        <Link to={"/logIn"} element={<Auth />}>
-          Log into account
-        </Link>
       </form>
+      <h5> Already signed up? </h5>
+      <Link to={"/logIn"} element={<Auth />}>
+        Log into account
+      </Link>
     </div>
   );
 }
