@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { db, auth } from "../../../firebase";
+import { collection } from "firebase/firestore";
 
 export default function CreateProject() {
   const [projectName, setName] = useState("");
+  const usersRef = collection(db, "users");
   const navigate = useNavigate();
+  console.log("collection of users", usersRef);
+
   const createProject = (e) => {
     e.preventDefault();
     console.log("project created", projectName);
-    navigate(`/create/project?=${projectName}`, { relative: "path" });
+    db.ref("/users").on("value", (snapshot) => {
+      console.log("the snapshot", snapshot.val());
+    });
+    navigate(`/create/:${projectName}`, { relative: "path" });
   };
 
   return (

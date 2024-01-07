@@ -6,9 +6,10 @@ import { auth } from "../../firebase";
 import { Link } from "react-router-dom";
 import CreateProject from "./CreateProject/index.jsx";
 
-function Header({ authUser, setAuthUser }) {
+function Header() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [authUser, setAuthUser] = useState(null);
   console.log("email", email);
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
@@ -27,7 +28,7 @@ function Header({ authUser, setAuthUser }) {
     <div>
       <div> Welcome to the business card creator! </div>
       {authUser ? (
-        <CreateProject />
+        <CreateProject setAuthUser={setAuthUser} authUser={authUser} />
       ) : (
         <Auth
           email={email}

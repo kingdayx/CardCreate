@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/create",
+    path: "/create/:projectName",
     element: <CreateCard />,
   },
   {
