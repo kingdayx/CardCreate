@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { MenuData } from "../MenuData";
 import { UploadButton } from "@bytescale/upload-widget-react";
+import { useDraggable } from "@dnd-kit/core";
 
 const ModalContainer = styled.section`
   display: flex;
@@ -100,7 +101,21 @@ export default function MenuDetails({
           </UploadButton>
           <div>
             {uploadData.map((item, itemIndex) => {
-              return <img src={item} height={100} width={100} id={itemIndex} />;
+              const { attributes, listeners, setNodeRef } = useDraggable({
+                id: { itemIndex },
+              });
+              return (
+                <div ref={setNodeRef}>
+                  <img
+                    {...listeners}
+                    {...attributes}
+                    src={item}
+                    height={100}
+                    width={100}
+                    id={itemIndex}
+                  />
+                </div>
+              );
             })}
           </div>
         </div>

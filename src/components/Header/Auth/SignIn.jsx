@@ -26,15 +26,6 @@ export default function Auth() {
       });
   };
 
-  const userSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        console.log(auth);
-        setAuthUser(null);
-      })
-      .catch((error) => console.log(error));
-  };
-
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
       if (user) {

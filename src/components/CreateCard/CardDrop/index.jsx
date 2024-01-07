@@ -1,8 +1,12 @@
 import React from "react";
-import { useDroppable } from "@dnd-kit/core";
+import { useDroppable, DndContext, closestCenter } from "@dnd-kit/core";
 import styled from "styled-components";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 
-const CardDropContainer = styled.div`
+const CardDropContainer = styled(DndContext)`
   display: flex;
   flex-direction: row;
 `;
@@ -15,7 +19,11 @@ export default function CardDrop(props) {
     color: isOver ? "green" : undefined,
   };
   return (
-    <CardDropContainer ref={setNodeRef} style={style}>
+    <CardDropContainer
+      ref={setNodeRef}
+      collisionDetection={closestCenter}
+      style={style}
+    >
       {props.children}
       <div>Card Drop</div>
     </CardDropContainer>

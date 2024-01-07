@@ -4,10 +4,14 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link } from "react-router-dom";
 import Auth from "./SignIn";
 import { collection, addDoc } from "firebase/firestore";
+import { useSelector, useDispatch } from "react-redux";
+import { addUserId } from "../../../reduxStore/userSlice";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+
   const SignUp = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
@@ -24,6 +28,7 @@ export default function SignUp() {
             password: password,
           });
           console.log("Document written with ID: ", docRef.id);
+          dispatch({ type: addUserId, payload: docRef.id });
           alert("account created! please proceed to log in page");
         } catch (e) {
           console.error("Error adding document: ", e);
