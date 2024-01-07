@@ -3,7 +3,7 @@ import Menu from "./Menu";
 import styled from "styled-components";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../firebase";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const CreateCardContainer = styled.div`
   display: flex;
@@ -22,7 +22,8 @@ const CreateCardNav = styled.div`
   flex-direction: row;
 `;
 
-function CreateCard({ setAuthUser, authUser }) {
+function CreateCard() {
+  const [authUser, setAuthUser] = useState(null);
   const userSignOut = () => {
     console.log(authUser);
     signOut(auth)

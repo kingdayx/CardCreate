@@ -1,23 +1,62 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { db, auth } from "../../../firebase";
-import { collection } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 
 export default function CreateProject() {
   const [projectName, setName] = useState("");
+  const [tKey, setTKey] = useState("");
   const usersRef = collection(db, "users");
   const navigate = useNavigate();
-  console.log("collection of users", usersRef);
 
-  const createProject = (e) => {
+  useEffect(() => {
+    const fetchTKey = async () => {
+      try {
+        const user = auth.currentUser;
+
+        if (user) {
+          // Get the UID of the logged-in user
+          const currentUserId = user.uid;
+
+          // Query the users collection based on the UID
+          const userDocRef = doc(usersRef, currentUserId);
+          console.log("user doc", userDocRef);
+          const userDocSnapshot = await getDoc(userDocRef);
+
+          if (userDocSnapshot.exists()) {
+            console.log(currentUserId);
+            setTKey(currentUserId); // Use the UID as tKey
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching tKey:", error);
+      }
+    };
+
+    fetchTKey();
+  }, [usersRef]);
+
+  const createProject = async (e) => {
     e.preventDefault();
-    console.log("project created", projectName);
-    db.ref("/users").on("value", (snapshot) => {
-      console.log("the snapshot", snapshot.val());
-    });
-    navigate(`/create/:${projectName}`, { relative: "path" });
-  };
 
+    // Create a new document under the "users" collection with an automatically generated ID
+    const newDocRef = doc(usersRef, tKey, "projects"); // Adjust 'projects' to your subcollection name
+
+    try {
+      // Set data for the new document
+      await setDoc(newDocRef, { projectName });
+
+      // Fetch the newly created document (optional)
+      const newDocSnap = await getDoc(newDocRef);
+      if (newDocSnap.exists()) {
+        console.log("New Document data:", newDocSnap.data());
+      }
+
+      navigate(`/create/${tKey}`, { relative: "path" });
+    } catch (error) {
+      console.error("Error creating project:", error);
+    }
+  };
   return (
     <div>
       <h5> Create Project </h5>
