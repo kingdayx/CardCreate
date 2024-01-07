@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { db, auth } from "../../../firebase";
 import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { signOut } from "firebase/auth";
 
-export default function CreateProject() {
+export default function CreateProject({ setAuthUser }) {
   const [projectName, setName] = useState("");
   const [tKey, setTKey] = useState("");
   const usersRef = collection(db, "users");
@@ -57,6 +58,14 @@ export default function CreateProject() {
       console.error("Error creating project:", error);
     }
   };
+  const userSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        console.log(auth);
+        setAuthUser(null);
+      })
+      .catch((error) => console.log(error));
+  };
   return (
     <div>
       <h5> Create Project </h5>
@@ -69,6 +78,8 @@ export default function CreateProject() {
         />
         <button type="submit"> create your project </button>
       </form>
+      <h5> Want to sign out? </h5>
+      <button onClick={userSignOut}> Sign out </button>
     </div>
   );
 }
